@@ -49,3 +49,34 @@ With cycle checking up to the parent node, at d = 3 there are now 11 nodes. The 
 
 ### D) Redundancy
 A redundant path that still appears in more than one node even with cycle checking is C-G; C can be arrived at from both A and B. BEST-FIRST-SEARCH is one method that handles redundancy.
+
+## Problem 3: Tracing BFS, DFS, and UCS
+### A) BFS
+- Expansion Order: S, A, C, E, B, D, G
+- Returned Path: S-C-G
+- Path Cost: 8
+### B) DFS
+- Pop Order: S, A, B, A(x), B, D, G
+- Returned Path: S-A-B-D-G
+- Path Cost: 13
+### C) UCS
+| Pop # | Node popped (g) | Frontier after the pop | Reached-table replacement |
+| ----| ------ | -------- | ----- |
+| 1 | S(0) | A(1), C(3), E(4) | none |
+| 2 | A(1) | B(1+1=2), C(3), E(4) | A |
+| 3 | B(2) | A(2+1=3), D(2+7=9), C(3), E(4)  | A, B |
+| 4 | C(3) | D(9), D(3+1=4), G(3+11=14), E(4) | A, B, C |
+| 5 | E(4) | D(9), D(4), G(14), F(4+1=5) | A, B, C, E |
+| 6 | D(4) | G(14), F(5), G(4+4=8)  | A, B, C, E, D |
+| 7 | F(5) | G(14, G(8), G(5+6 = 11)) | A, B, C, E, D, F |
+| 8 | G(8) | N/A | A, B, C, E, D, F |
+| 9 | N/A | N/A | N/A |
+
+- Returned Path: S-C-D-G
+- Path Cost: 8
+- Returned on Pop #: 8
+
+### D) UCS & Generation
+If UCS performed the goal test upon node generation it would return S-C-G with cost 14 on pop #4.
+### E) Buggy Code
+The described buggy code would return the following path: S-C-G. This is not the same path as in b). This path is returned because using append() and popleft() is a FIFO structure and acts as a BFS so the path that generates / reaches G in the fewest number of steps will be returned.
