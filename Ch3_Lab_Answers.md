@@ -102,6 +102,17 @@ $$ Overhead = \frac{(174 - 120)}{120} * 100 = 45\%  $$
 
 The difference in overhead has to do with a smaller tree and depth making each repetition more costly from a percentage standpoint; broader trees and a deeper depth lead a smaller percentage difference.
 
+## Problem 5: Bidirectional Search
+### A) Efficiency
+For b = 6 and d = 8
+$$ b^d = 6^8 = 1,679,616 $$
+$$ b^\frac{d}{2} + b^\frac{d}{2} = 6^4 + 6^4 = 2,592 $$
+$$ ReductionFactor = \frac{1,679,616}{2,592} = 648 $$
+### B) Applicability
+(i) Yes, s' is a successor of s in the forward direction and s is a successor of s` in the backward direction; the frontiers can meet.
+
+(ii) No, operations such as floor and square-root are irreversible and the frontiers cannot meet. 
+
 ## Problem 6: T/F
 1) True
 2) False
