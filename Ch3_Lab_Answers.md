@@ -102,3 +102,12 @@ $$ Overhead = \frac{(174 - 120)}{120} * 100 = 45\%  $$
 
 The difference in overhead has to do with a smaller tree and depth making each repetition more costly from a percentage standpoint; broader trees and a deeper depth lead a smaller percentage difference.
 
+## Problem 6: T/F
+1) True
+2) False
+3) True
+4) True
+5) True
+6) True
+7) False
+8) True
