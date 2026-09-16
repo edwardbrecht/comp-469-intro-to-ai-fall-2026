@@ -17,8 +17,6 @@ on the fly. Part of your write-up asks you to work out just how large a
 table with the bigger fields would need to be -- you do not have to build
 that version, just the arithmetic.
 
-TODO(CH2-1a), TODO(CH2-1b), TODO(CH2-1c) mark what to do. Delete each
-marker once that piece is done.
 """
 
 from __future__ import annotations
@@ -30,23 +28,10 @@ from pacman.maze import DIRECTION_NAMES, DIRECTION_ORDER, MazeModel
 
 AGENT_NAME = "table_driven"
 
-
-# =====================================================================
-# TODO(CH2-1a)  The percept
-# =====================================================================
-# Declare exactly two fields here, using these exact names (the
-# environment matches on name; anything else raises an error that names
-# the offender):
-#
-#   current_direction:  tuple[int, int]
-#   legal_actions:       tuple[tuple[int, int], ...]
-#
-# Nothing else. A bigger percept is legal but defeats the point of this
-# part -- see the module docstring.
-# =====================================================================
 @dataclass(frozen=True)
 class Percept:
-    ...  # TODO(CH2-1a): replace this with the two fields above.
+    current_direction: tuple[int, int]
+    legal_actions: tuple[tuple[int, int], ...]
 
 
 def _all_nonempty_subsets(items: tuple) -> list[tuple]:
@@ -68,9 +53,6 @@ class TableDrivenAgent:
         self.table: dict[tuple, tuple[int, int]] = self._build_table()
         self.table_misses = 0
 
-    # -------------------------------------------------------------
-    # TODO(CH2-1b)  Build the table
-    # -------------------------------------------------------------
     def _build_table(self) -> dict[tuple, tuple[int, int]]:
         """Return a dict mapping ``(current_direction, legal_actions)`` to
         one action, covering every combination your agent might see.
@@ -83,13 +65,26 @@ class TableDrivenAgent:
         continue in ``current_direction`` when that is one of the legal
         options, and fall back to the first legal action otherwise. This
         has to be a literal lookup table built with loops here, in
-        ``__init__`` -- not logic evaluated later in ``choose_action``.
+        ``__init__`` -- not logic evaluated later in ``choose_action``.     
+        
         """
-        raise NotImplementedError("CH2-1b: _build_table")
 
-    # -------------------------------------------------------------
-    # TODO(CH2-1c)  Look it up
-    # -------------------------------------------------------------
+        table = {}
+
+        temp_names = DIRECTION_NAMES
+        temp_names[(0, 0)] = "START"
+        for d in temp_names:
+            table[d] = d
+            for s in _all_nonempty_subsets(DIRECTION_ORDER):
+                next_action = s[0]
+                if s.__contains__(d):
+                    next_action = d
+                key = (d, s)
+                table[key] = next_action
+        print(table)
+        return table
+
+
     def choose_action(self, percept: Percept) -> tuple[int, int]:
         """Look up ``(percept.current_direction, percept.legal_actions)``
         in ``self.table`` and return what you find.
@@ -104,4 +99,13 @@ class TableDrivenAgent:
           - Set ``self.last_reason`` to a short line with the direction
             name, e.g. ``f"{DIRECTION_NAMES[action]} | table lookup"``.
         """
-        raise NotImplementedError("CH2-1c: choose_action")
+        if percept.legal_actions == None:
+            self.last_reason = "No legal"
+            return (0, 0)
+        action = self.table[(percept.current_direction, percept.legal_actions)]
+        if action == None:
+            self.table_misses += 1
+            action = percept.legal_actions[0]          
+        return action
+
+
