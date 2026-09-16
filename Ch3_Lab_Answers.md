@@ -80,3 +80,25 @@ A redundant path that still appears in more than one node even with cycle checki
 If UCS performed the goal test upon node generation it would return S-C-G with cost 14 on pop #4.
 ### E) Buggy Code
 The described buggy code would return the following path: S-C-G. This is not the same path as in b). This path is returned because using append() and popleft() is a FIFO structure and acts as a BFS so the path that generates / reaches G in the fewest number of steps will be returned.
+## Problem 4: Depth-Limited and Iterative Deepening Search
+### A)
+| l | Nodes popped, in order | Returns |
+| --- | --- | --- |
+| 0 | A | cutoff |
+| 1 | A, B, C, D | cutoff |
+| 2 | A, B, E, F, C, H, D, I, J, K | cutoff |
+| 3 | A, B, E, L, F, C, H, M, N | A-C-H-N |
+
+### B) No Goal
+With no goal state, l = 3 would return cutoff. Iterative deepening would stop at l = 4 and would return failure as no new nodes were expanded and no goal was reached.
+
+### C) IDS vs BFS
+
+For b = 3 and d = 4:
+
+$$ N(IDS) = (4)3 + (3)3^2 + (2)3^3 + 3^4 = 174 $$
+$$ N(BFS) = 3 + 3^2 + 3^3 + 3^4 = 120 $$
+$$ Overhead = \frac{(174 - 120)}{120} * 100 = 45\%  $$
+
+The difference in overhead has to do with a smaller tree and depth making each repetition more costly from a percentage standpoint; broader trees and a deeper depth lead a smaller percentage difference.
+
