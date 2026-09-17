@@ -3,7 +3,7 @@
 Name:
 Date:
 
-Keep this to three or four pages. Answer from the code in front of you | 
+Keep this to three or four pages. Answer from the code in front of you,
 not from the textbook in general. A correct answer that could have been
 written without ever opening this project will not get full marks.
 
@@ -15,28 +15,23 @@ Describe this task environment using AIMA Section 2.3.1. This is one
 description for the whole environment -- all six of your agents share it.
 
 **Performance measure.**
-> What is the agent actually judged on? Name the function and the file.
-> List every term in it |  including the ones that cost points.
+> Pac-Man earns points for eating regular pellets, power pellets, and frightened ghosts, and gets a big bonus for clearing the maze in full. It loses points if a ghost catches it, and for taking too many turns or immediately turning back the way it came.
 
 **Environment.**
-> The maze |  the ghosts |  the pellets |  the clock. Mention anything that
-> changes while an agent is deciding.
+> The environment is the Pac-Man maze, which includes walls, pellets, power pellets, Pac-Man, ghosts, and a timer. While Pac-Man plays, things that change are that pellets disappear when eaten, power pellets make ghosts frightened for a short time, and ghosts move around the maze. On hard difficulty, ghosts will move faster.
 
 **Actuators.**
-> What can an agent actually do? Be precise about how many actions it
-> takes per turn and what happens if it picks an illegal one.
+> Pac-Man during each turn can choose to move left, right, up, or down. If the move is legal, Pac-Man moves one tile in that direction. If the move would hit a wall, Pac-Man stays where he is, but the turn still counts.
 
 **Sensors.**
-> What can an agent perceive? Name the mechanism that decides this |  not
-> just the list of possible fields -- and say why different parts of this
-> project declare different subsets of them.
+> Depending on the agent, it can be told its own location, its current direction, where pellets and power pellets are, where ghosts are, what moves are legal, and whether ghosts are frightened. Different agents get different information because each part of the assignment is testing a different type of AI agent.
 
 ---
 
 ## 2. Environment properties (6 points)
 
 One row per dimension from AIMA Figure 2.6. Justify each from something
-specific in the code |  and name it.
+specific in the code, and name it.
 
 | Property | This environment is... | Why (cite the code) |
 |---|---|---|
@@ -49,26 +44,26 @@ specific in the code |  and name it.
 | Known or unknown | Known | rules.py dictates only a few simple static interactions; agent knows to avoid ghosts unless they are frightened and to go after pellets |
 
 **Follow-up.** Two of these have an argument on both sides in this
-particular implementation. Pick one |  and make the case for the answer you
+particular implementation. Pick one, and make the case for the answer you
 did *not* put in the table.
 Some agents only have access to knowing the result of taking an action ie what is right next to them. In those cases the environment is only partially observable.
 
 ---
 
-## 3. Six agents |  six figures (6 points)
+## 3. Six agents, six figures (6 points)
 
-One row per part. Name the AIMA Section 2.4 figure it matches |  and the
+One row per part. Name the AIMA Section 2.4 figure it matches, and the
 ONE concrete thing that part adds over the part before it (not a
 restatement of what it does overall -- the specific delta).
 
 | Part | Figure | What it adds over the previous part |
 |---|---|---|
-| 1. Table-driven | | (nothing to compare against -- say instead what makes it infeasible) |
-| 2. Simple reflex | | |
-| 3. Model-based reflex | | |
-| 4. Goal-based | | |
-| 5. Utility-based | | |
-| 6. Learning | | |
+| 1. Table-driven | 2.7 | A table-driven agent needs a saved move for every possible history of the game. Since there are too many possible histories, the table would become too large to store and therefore impractical to use |
+| 2. Simple reflex | 2.10 | Replaces the giant table with simple rules based only on what it sees right now |
+| 3. Model-based reflex | 2.11 / 2.12 | Adds memory of visited tiles and recent movement |
+| 4. Goal-based | 2.13 | Adds a goal, to get food or move away from danger |
+| 5. Utility-based | 2.14 | Gives each possible move a score and picks the best one |
+| 6. Learning | 2.15 | Adjusts its utility weights between games based on performance |
 
 **Two follow-ups:**
 
@@ -77,16 +72,16 @@ restatement of what it does overall -- the specific delta).
 > cost you.
 
 > For Part 6: map the four boxes of AIMA Figure 2.15 (performance
-> element |  critic |  learning element |  problem generator) onto specific
+> element, critic, learning element, problem generator) onto specific
 > names in `learning_agent.py`.
 
 ---
 
 ## 4. Performance measure vs. utility function (5 points)
 
-These are two different things |  and this codebase keeps them in two
-different places on purpose -- one in `pacman/rules.py` |  imposed by the
-environment designer |  and one inside `utility_based_agent.py` |  chosen by
+These are two different things, and this codebase keeps them in two
+different places on purpose -- one in `pacman/rules.py`, imposed by the
+environment designer, and one inside `utility_based_agent.py`, chosen by
 you.
 
 **Where does each one live?**
@@ -94,11 +89,11 @@ you.
 
 **Name one place they disagree.**
 > Find something your utility function rewards (or punishes) that the
-> performance measure does not |  or the reverse. Explain why that gap
+> performance measure does not, or the reverse. Explain why that gap
 > exists and whether it is a flaw.
 
 **Why does AIMA insist on the distinction?**
-> Answer in your own words |  in three or four sentences.
+> Answer in your own words, in three or four sentences.
 
 ---
 
@@ -115,7 +110,7 @@ where it lost.
 
 **Why the losing decision was still rational.**
 > AIMA Section 2.2.2 separates rationality from omniscience. Use it. What
-> did the agent not know |  and could it have known it given the percept it
+> did the agent not know, and could it have known it given the percept it
 > was handed and the "no search" rule every part in this project follows?
 
 **What would have to change for that decision to be irrational?**
@@ -124,7 +119,7 @@ where it lost.
 
 ## 6. Trial results across all six parts (4 points)
 
-Paste the summary table from `results/summary.csv` (both difficulties) | 
+Paste the summary table from `results/summary.csv` (both difficulties),
 and a row for the trained `learning` agent from
 `results/learned_weights.json`.
 
@@ -135,10 +130,9 @@ and a row for the trained `learning` agent from
 | model_based | normal | 30 | 0.0 | 1.0 | 602.67 | 84.3 | 1.5 | -417.19 | 89.97 |
 | goal_based | normal | 30 | 0.133 | 0.867 | 712.33 | 98.47 | 10.83 | 70.97 | 1210.01 |
 | utility_based | normal | 30 | 0.8 | 0.2 | 972.33 | 88.77 | 7.27 | 2340.05 | 1416.15 |
-| learning | normal | 30 | 0.0 | 1.0 | 338.33 | 44.13 | 8.63 | -687.76 | 217.81 | 
+| learning | normal | 30 | 0.167 | 0.833 | 593.33 | 73.73 | 7.1 | 64.39 | 1431.18 |
 | greedy | normal | 30 | 0.6 | 0.4 | 1091.0 | 79.9 | 6.93 | 1861.15 | 1819.58 |
 | random | normal | 30 | 0.0 | 1.0 | 190.67 | 33.2 | 11.87 | -839.71 | 129.68 |
-
 
 | agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance | stdev_performance |
 |---|---|---|---|---|---|---|---|---|---|
@@ -147,25 +141,33 @@ and a row for the trained `learning` agent from
 | model_based | hard | 30 | 0.0 | 1.0 | 578.0 | 59.0 | 0.43 | -434.67 | 54.74 |
 | goal_based | hard | 30 | 0.233 | 0.767 | 682.0 | 71.43 | 6.9 | 353.91 | 1494.56 |
 | utility_based | hard | 30 | 0.067 | 0.933 | 579.33 | 63.23 | 5.17 | -243.65 | 871.84 |
-| learning | hard | 30 | 0.0 | 1.0 | 650.0 | 55.83 | 8.5 | -378.17 | 309.44 |
+| learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 | 232.29 |
 | greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 | 758.66 |
 | random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 | 8.87 |
+<<<<<<< HEAD
+=======
 
+Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
 
-**Interpretation |  five to eight sentences.**
+| agent | difficulty | mean_performance before training | mean_performance after training | change |
+|---|---|---|---|---|
+| learning | normal | -68.31 | 393.87 | +462.18 |
+>>>>>>> a2f43a305eaf118118b48ac40d713a114c4a80de
+
+**Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part
-> buy over the one before it |  in terms of the agent structures involved
+> buy over the one before it, in terms of the agent structures involved
 > rather than raw numbers? `mean_decisions` and `mean_backtracks` are the
 > interesting columns for Parts 2 vs. 3 (memory); win rate and mean
 > performance are the interesting columns for Parts 4 vs. 5 (goals vs.
 > utility); the before/after numbers in `learned_weights.json` are the
 > interesting ones for Part 6. If any part did NOT improve on the one
-> before it in your results |  say so and explain why -- that is a real
-> finding |  not something to hide.
+> before it in your results, say so and explain why -- that is a real
+> finding, not something to hide.
 
 ---
 
 ## Optional
 
-Anything you tried that did not work |  or a weight you tuned and then
-reverted. Not graded |  but useful to me.
+Anything you tried that did not work, or a weight you tuned and then
+reverted. Not graded, but useful to me.
