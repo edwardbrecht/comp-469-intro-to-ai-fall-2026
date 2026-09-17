@@ -130,6 +130,27 @@ and a row for the trained `learning` agent from
 | agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_performance |
 |---|---|---|---|---|---|---|---|
 | | | | | | | | |
+agent,difficulty,trials,win_rate,caught_rate,mean_score,mean_decisions,mean_backtracks,mean_performance,stdev_performance
+table_driven,normal,30,0.0,1.0,77.0,12.23,1.1,-927.65,20.0
+simple_reflex,normal,30,0.0,1.0,898.0,116.3,7.0,-139.26,347.71
+model_based,normal,30,0.0,1.0,602.67,84.3,1.5,-417.19,89.97
+goal_based,normal,30,0.133,0.867,712.33,98.47,10.83,70.97,1210.01
+utility_based,normal,30,0.8,0.2,972.33,88.77,7.27,2340.05,1416.15
+learning,normal,30,0.0,1.0,338.33,44.13,8.63,-687.76,217.81
+greedy,normal,30,0.6,0.4,1091.0,79.9,6.93,1861.15,1819.58
+random,normal,30,0.0,1.0,190.67,33.2,11.87,-839.71,129.68
+
+agent,difficulty,trials,win_rate,caught_rate,mean_score,mean_decisions,mean_backtracks,mean_performance,stdev_performance
+table_driven,hard,30,0.0,1.0,70.0,9.23,1.0,-933.85,0.09
+simple_reflex,hard,30,0.0,1.0,143.33,14.97,0.2,-860.06,128.63
+model_based,hard,30,0.0,1.0,578.0,59.0,0.43,-434.67,54.74
+goal_based,hard,30,0.233,0.767,682.0,71.43,6.9,353.91,1494.56
+utility_based,hard,30,0.067,0.933,579.33,63.23,5.17,-243.65,871.84
+learning,hard,30,0.0,1.0,650.0,55.83,8.5,-378.17,309.44
+greedy,hard,30,0.033,0.967,161.67,14.9,0.4,-742.11,758.66
+random,hard,30,0.0,1.0,131.33,21.9,6.2,-885.45,8.87
+
+
 
 **Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part
