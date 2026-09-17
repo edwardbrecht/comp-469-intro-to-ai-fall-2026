@@ -50,9 +50,7 @@ class GoalBasedAgent:
         self.maze = maze
         self.last_reason = "Waiting for first percept."
 
-    # -------------------------------------------------------------
-    # TODO(CH2-4a)  Pick the goal
-    # -------------------------------------------------------------
+    # Pick the goal
     def determine_goal(self, percept: Percept) -> tuple[str, frozenset]:
         """Return ``(kind, positions)``.
 
@@ -67,11 +65,26 @@ class GoalBasedAgent:
         food left at all, fall back to ``frozenset({percept.player})`` so
         the set is never empty.
         """
-        raise NotImplementedError("CH2-4a: determine_goal")
+        # nearby non-frightened ghost makes fleeing the goal
+        dangerous_ghosts = frozenset(
+            ghost
+            for ghost in percept.released_ghosts
+            if not percept.frightened
+            and self.maze.distance(percept.player, {ghost}) <= self.DANGER_RADIUS
+        )
+        if dangerous_ghosts:
+            return "flee", dangerous_ghosts
 
-    # -------------------------------------------------------------
-    # TODO(CH2-4b)  Test the goal
-    # -------------------------------------------------------------
+        food = frozenset(percept.pellets | percept.power_pellets)
+        
+        # while frightened, released ghosts become valid food targets
+        if percept.frightened:
+            food = food | frozenset(percept.released_ghosts)
+        if not food:
+            food = frozenset({percept.player})
+        return "seek", food
+
+    # Test the goal
     def goal_test(self, position: tuple[int, int], goal: tuple[str, frozenset]) -> bool:
         """Has ``position`` achieved ``goal``?
 
@@ -80,11 +93,15 @@ class GoalBasedAgent:
         self.DANGER_RADIUS steps (self.maze.distance) from every goal
         position.
         """
-        raise NotImplementedError("CH2-4b: goal_test")
+        kind, positions = goal
+        if kind == "seek":
+            return position in positions
+        return all(
+            self.maze.distance(position, {goal_position}) > self.DANGER_RADIUS
+            for goal_position in positions
+        )
 
-    # -------------------------------------------------------------
-    # TODO(CH2-4c)  Act toward the goal
-    # -------------------------------------------------------------
+    # Act toward the goal
     def choose_action(self, percept: Percept) -> tuple[int, int]:
         """Requirements:
           - If there are no legal actions, set last_reason to a string
@@ -102,4 +119,29 @@ class GoalBasedAgent:
             landing tile, and the distance, e.g.:
             "RIGHT | goal=seek | achieved=False | dist=4"
         """
-        raise NotImplementedError("CH2-4c: choose_action")
+        if not percept.legal_actions:
+            self.last_reason = "No legal actions."
+            return (0, 0)
+
+        # seek closest goal, or flee by maximizing distance from ghosts
+        goal = self.determine_goal(percept)
+        kind, positions = goal
+        best_action = percept.legal_actions[0]
+        best_landing = self.maze.step(percept.player, best_action)
+        best_distance = self.maze.distance(best_landing, positions)
+
+        for action in percept.legal_actions[1:]:
+            landing = self.maze.step(percept.player, action)
+            distance = self.maze.distance(landing, positions)
+            if (kind == "seek" and distance < best_distance) or (
+                kind == "flee" and distance > best_distance
+            ):
+                best_action = action
+                best_landing = landing
+                best_distance = distance
+
+        self.last_reason = (
+            f"{DIRECTION_NAMES[best_action]} | goal={kind} | "
+            f"achieved={self.goal_test(best_landing, goal)} | dist={best_distance}"
+        )
+        return best_action
