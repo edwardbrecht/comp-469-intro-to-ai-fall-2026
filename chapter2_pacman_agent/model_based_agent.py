@@ -12,8 +12,6 @@ Rules 1-3 below (ghost avoidance, eating a frightened ghost, taking an
 adjacent pellet) are carried over from Part 2 -- you already built this
 logic once, so it is filled in for you. What is new, and what you TODO
 here, is the internal state itself and the rule that uses it.
-
-TODO(CH2-3a), TODO(CH2-3b), TODO(CH2-3c) mark what to do.
 """
 
 from __future__ import annotations
@@ -48,29 +46,12 @@ class ModelBasedAgent:
         self.maze = maze
         self.last_reason = "Waiting for first percept."
 
-        # =============================================================
-        # TODO(CH2-3a)  Internal state
-        # =============================================================
-        # A simple reflex agent has none, which is why it paces once a
-        # corridor is empty. Add:
-        #
-        #   self.visit_counts: dict[tuple[int, int], int]
-        #       how many times each tile has been occupied
-        #   self.position_history: collections.deque, maxlen=4
-        #       the last few tiles, so you can spot an immediate reversal
-        #   self.revisit_decisions: int, starts at 0
-        #   self.backtrack_decisions: int, starts at 0
-        # =============================================================
-
         self.visit_counts: dict[tuple[int, int], int] = {}
         self.position_history: deque[tuple[int, int]] = deque(maxlen=4)
         self.revisit_decisions = 0
         self.backtrack_decisions = 0
 
 
-    # -------------------------------------------------------------
-    # TODO(CH2-3b)  Update internal state
-    # -------------------------------------------------------------
     def update_internal_state(self, percept: Percept) -> None:
         """Fold this percept into memory. Called once per turn, before any
         action is chosen. Record that percept.player has been visited
@@ -120,29 +101,8 @@ class ModelBasedAgent:
             if landing[action] in percept.pellets:
                 return self._commit(action, "adjacent pellet")
 
-        # =============================================================
-        # TODO(CH2-3c)  Use your memory
-        # =============================================================
-        # Rule 4: avoid reversing into the tile you occupied two turns
-        # ago (self.position_history[-2], if it has at least 2 entries)
-        # UNLESS that is the only safe option left. Build a
-        # `non_backtrack` list from `safe` accordingly (fall back to
-        # `safe` itself if excluding the backtrack tile leaves nothing).
-        #
-        # Rule 5: among what's left in `non_backtrack`, pick the action
-        # whose landing tile has been visited the FEWEST times
-        # (self.visit_counts.get(tile, 0)). Break ties by keeping the
-        # first one found, iterating in percept.legal_actions order --
-        # min() with a key function already does this.
-        #
-        # Bookkeeping: increment self.revisit_decisions if the tile you
-        # end up choosing has visit_counts > 0, and increment
-        # self.backtrack_decisions if it equals the two-turns-ago tile.
-        #
-        # Finish with: return self._commit(best_action, f"least-visited
-        # ({rule})")
-        # =============================================================
-        
+        # Rules 4 and 5: don't reverse into the tile from two turns ago
+        # unless it's the only safe option, then pick the least-visited tile.
         backtrack_tile = (
             self.position_history[-2]
             if len(self.position_history) >= 2
