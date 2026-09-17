@@ -127,6 +127,7 @@ Paste the summary table from `results/summary.csv` (both difficulties) |
 and a row for the trained `learning` agent from
 `results/learned_weights.json`.
 
+<<<<<<< HEAD
 | agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance | stdev_performance |
 |---|---|---|---|---|---|---|---|---|---|
 | table_driven | normal | 30 | 0.0 | 1.0 | 77.0 | 12.23 | 1.1 | -927.65 | 20.0 |
@@ -149,6 +150,32 @@ and a row for the trained `learning` agent from
 | learning | hard | 30 | 0.0 | 1.0 | 650.0 | 55.83 | 8.5 | -378.17 | 309.44 |
 | greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 | 758.66 |
 | random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 | 8.87 |
+=======
+| agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance |
+|---|---|---|---|---|---|---|---|---|
+| table_driven | normal | 30 | 0.0 | 1.0 | 77.0 | 12.23 | 1.1 | -927.65 |
+| simple_reflex | normal | 30 | 0.0 | 1.0 | 898.0 | 116.3 | 7.0 | -139.26 |
+| model_based | normal | 30 | 0.0 | 1.0 | 602.67 | 84.3 | 1.5 | -417.19 |
+| goal_based | normal | 30 | 0.133 | 0.867 | 712.33 | 98.47 | 10.83 | 70.97 |
+| utility_based | normal | 30 | 0.8 | 0.2 | 972.33 | 88.77 | 7.27 | 2340.05 |
+| learning | normal | 30 | 0.167 | 0.833 | 593.33 | 73.73 | 7.1 | 64.39 |
+| greedy | normal | 30 | 0.6 | 0.4 | 1091.0 | 79.9 | 6.93 | 1861.15 |
+| random | normal | 30 | 0.0 | 1.0 | 190.67 | 33.2 | 11.87 | -839.71 |
+| table_driven | hard | 30 | 0.0 | 1.0 | 70.0 | 9.23 | 1.0 | -933.85 |
+| simple_reflex | hard | 30 | 0.0 | 1.0 | 143.33 | 14.97 | 0.2 | -860.06 |
+| model_based | hard | 30 | 0.0 | 1.0 | 578.0 | 59.0 | 0.43 | -434.67 |
+| goal_based | hard | 30 | 0.233 | 0.767 | 682.0 | 71.43 | 6.9 | 353.91 |
+| utility_based | hard | 30 | 0.067 | 0.933 | 579.33 | 63.23 | 5.17 | -243.65 |
+| learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 |
+| greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 |
+| random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 |
+
+Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
+
+| agent | difficulty | mean_performance before training | mean_performance after training | change |
+|---|---|---|---|---|
+| learning | normal | -68.31 | 393.87 | +462.18 |
+>>>>>>> 5af6d0f5b0655fa9a9700b1509e1128fbfb4b22e
 
 
 **Interpretation |  five to eight sentences.**
