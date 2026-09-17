@@ -57,12 +57,12 @@ restatement of what it does overall -- the specific delta).
 
 | Part | Figure | What it adds over the previous part |
 |---|---|---|
-| 1. Table-driven | | (nothing to compare against -- say instead what makes it infeasible) |
-| 2. Simple reflex | | |
-| 3. Model-based reflex | | |
-| 4. Goal-based | | |
-| 5. Utility-based | | |
-| 6. Learning | | |
+| 1. Table-driven | 2.7 | A table-driven agent needs a saved move for every possible history of the game. Since there are too many possible histories, the table would become too large to store and therefore impractical to use |
+| 2. Simple reflex | 2.10 | Replaces the giant table with simple rules based only on what it sees right now |
+| 3. Model-based reflex | 2.11 / 2.12 | Adds memory of visited tiles and recent movement |
+| 4. Goal-based | 2.13 | Adds a goal, to get food or move away from danger |
+| 5. Utility-based | 2.14 | Gives each possible move a score and picks the best one |
+| 6. Learning | 2.15 | Adjusts its utility weights between games based on performance |
 
 **Two follow-ups:**
 
