@@ -3,7 +3,7 @@
 Name:
 Date:
 
-Keep this to three or four pages. Answer from the code in front of you | 
+Keep this to three or four pages. Answer from the code in front of you,
 not from the textbook in general. A correct answer that could have been
 written without ever opening this project will not get full marks.
 
@@ -16,10 +16,10 @@ description for the whole environment -- all six of your agents share it.
 
 **Performance measure.**
 > What is the agent actually judged on? Name the function and the file.
-> List every term in it |  including the ones that cost points.
+> List every term in it, including the ones that cost points.
 
 **Environment.**
-> The maze |  the ghosts |  the pellets |  the clock. Mention anything that
+> The maze, the ghosts, the pellets, the clock. Mention anything that
 > changes while an agent is deciding.
 
 **Actuators.**
@@ -27,7 +27,7 @@ description for the whole environment -- all six of your agents share it.
 > takes per turn and what happens if it picks an illegal one.
 
 **Sensors.**
-> What can an agent perceive? Name the mechanism that decides this |  not
+> What can an agent perceive? Name the mechanism that decides this, not
 > just the list of possible fields -- and say why different parts of this
 > project declare different subsets of them.
 
@@ -36,7 +36,7 @@ description for the whole environment -- all six of your agents share it.
 ## 2. Environment properties (6 points)
 
 One row per dimension from AIMA Figure 2.6. Justify each from something
-specific in the code |  and name it.
+specific in the code, and name it.
 
 | Property | This environment is... | Why (cite the code) |
 |---|---|---|
@@ -49,14 +49,14 @@ specific in the code |  and name it.
 | Known or unknown | | |
 
 **Follow-up.** Two of these have an argument on both sides in this
-particular implementation. Pick one |  and make the case for the answer you
+particular implementation. Pick one, and make the case for the answer you
 did *not* put in the table.
 
 ---
 
-## 3. Six agents |  six figures (6 points)
+## 3. Six agents, six figures (6 points)
 
-One row per part. Name the AIMA Section 2.4 figure it matches |  and the
+One row per part. Name the AIMA Section 2.4 figure it matches, and the
 ONE concrete thing that part adds over the part before it (not a
 restatement of what it does overall -- the specific delta).
 
@@ -76,16 +76,16 @@ restatement of what it does overall -- the specific delta).
 > cost you.
 
 > For Part 6: map the four boxes of AIMA Figure 2.15 (performance
-> element |  critic |  learning element |  problem generator) onto specific
+> element, critic, learning element, problem generator) onto specific
 > names in `learning_agent.py`.
 
 ---
 
 ## 4. Performance measure vs. utility function (5 points)
 
-These are two different things |  and this codebase keeps them in two
-different places on purpose -- one in `pacman/rules.py` |  imposed by the
-environment designer |  and one inside `utility_based_agent.py` |  chosen by
+These are two different things, and this codebase keeps them in two
+different places on purpose -- one in `pacman/rules.py`, imposed by the
+environment designer, and one inside `utility_based_agent.py`, chosen by
 you.
 
 **Where does each one live?**
@@ -93,11 +93,11 @@ you.
 
 **Name one place they disagree.**
 > Find something your utility function rewards (or punishes) that the
-> performance measure does not |  or the reverse. Explain why that gap
+> performance measure does not, or the reverse. Explain why that gap
 > exists and whether it is a flaw.
 
 **Why does AIMA insist on the distinction?**
-> Answer in your own words |  in three or four sentences.
+> Answer in your own words, in three or four sentences.
 
 ---
 
@@ -114,7 +114,7 @@ where it lost.
 
 **Why the losing decision was still rational.**
 > AIMA Section 2.2.2 separates rationality from omniscience. Use it. What
-> did the agent not know |  and could it have known it given the percept it
+> did the agent not know, and could it have known it given the percept it
 > was handed and the "no search" rule every part in this project follows?
 
 **What would have to change for that decision to be irrational?**
@@ -123,11 +123,10 @@ where it lost.
 
 ## 6. Trial results across all six parts (4 points)
 
-Paste the summary table from `results/summary.csv` (both difficulties) | 
+Paste the summary table from `results/summary.csv` (both difficulties),
 and a row for the trained `learning` agent from
 `results/learned_weights.json`.
 
-<<<<<<< HEAD
 | agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance | stdev_performance |
 |---|---|---|---|---|---|---|---|---|---|
 | table_driven | normal | 30 | 0.0 | 1.0 | 77.0 | 12.23 | 1.1 | -927.65 | 20.0 |
@@ -135,10 +134,9 @@ and a row for the trained `learning` agent from
 | model_based | normal | 30 | 0.0 | 1.0 | 602.67 | 84.3 | 1.5 | -417.19 | 89.97 |
 | goal_based | normal | 30 | 0.133 | 0.867 | 712.33 | 98.47 | 10.83 | 70.97 | 1210.01 |
 | utility_based | normal | 30 | 0.8 | 0.2 | 972.33 | 88.77 | 7.27 | 2340.05 | 1416.15 |
-| learning | normal | 30 | 0.0 | 1.0 | 338.33 | 44.13 | 8.63 | -687.76 | 217.81 | 
+| learning | normal | 30 | 0.167 | 0.833 | 593.33 | 73.73 | 7.1 | 64.39 | 1431.18 |
 | greedy | normal | 30 | 0.6 | 0.4 | 1091.0 | 79.9 | 6.93 | 1861.15 | 1819.58 |
 | random | normal | 30 | 0.0 | 1.0 | 190.67 | 33.2 | 11.87 | -839.71 | 129.68 |
-
 
 | agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance | stdev_performance |
 |---|---|---|---|---|---|---|---|---|---|
@@ -147,51 +145,30 @@ and a row for the trained `learning` agent from
 | model_based | hard | 30 | 0.0 | 1.0 | 578.0 | 59.0 | 0.43 | -434.67 | 54.74 |
 | goal_based | hard | 30 | 0.233 | 0.767 | 682.0 | 71.43 | 6.9 | 353.91 | 1494.56 |
 | utility_based | hard | 30 | 0.067 | 0.933 | 579.33 | 63.23 | 5.17 | -243.65 | 871.84 |
-| learning | hard | 30 | 0.0 | 1.0 | 650.0 | 55.83 | 8.5 | -378.17 | 309.44 |
+| learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 | 232.29 |
 | greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 | 758.66 |
 | random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 | 8.87 |
-=======
-| agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance |
-|---|---|---|---|---|---|---|---|---|
-| table_driven | normal | 30 | 0.0 | 1.0 | 77.0 | 12.23 | 1.1 | -927.65 |
-| simple_reflex | normal | 30 | 0.0 | 1.0 | 898.0 | 116.3 | 7.0 | -139.26 |
-| model_based | normal | 30 | 0.0 | 1.0 | 602.67 | 84.3 | 1.5 | -417.19 |
-| goal_based | normal | 30 | 0.133 | 0.867 | 712.33 | 98.47 | 10.83 | 70.97 |
-| utility_based | normal | 30 | 0.8 | 0.2 | 972.33 | 88.77 | 7.27 | 2340.05 |
-| learning | normal | 30 | 0.167 | 0.833 | 593.33 | 73.73 | 7.1 | 64.39 |
-| greedy | normal | 30 | 0.6 | 0.4 | 1091.0 | 79.9 | 6.93 | 1861.15 |
-| random | normal | 30 | 0.0 | 1.0 | 190.67 | 33.2 | 11.87 | -839.71 |
-| table_driven | hard | 30 | 0.0 | 1.0 | 70.0 | 9.23 | 1.0 | -933.85 |
-| simple_reflex | hard | 30 | 0.0 | 1.0 | 143.33 | 14.97 | 0.2 | -860.06 |
-| model_based | hard | 30 | 0.0 | 1.0 | 578.0 | 59.0 | 0.43 | -434.67 |
-| goal_based | hard | 30 | 0.233 | 0.767 | 682.0 | 71.43 | 6.9 | 353.91 |
-| utility_based | hard | 30 | 0.067 | 0.933 | 579.33 | 63.23 | 5.17 | -243.65 |
-| learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 |
-| greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 |
-| random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 |
 
 Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
 
 | agent | difficulty | mean_performance before training | mean_performance after training | change |
 |---|---|---|---|---|
 | learning | normal | -68.31 | 393.87 | +462.18 |
->>>>>>> 5af6d0f5b0655fa9a9700b1509e1128fbfb4b22e
 
-
-**Interpretation |  five to eight sentences.**
+**Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part
-> buy over the one before it |  in terms of the agent structures involved
+> buy over the one before it, in terms of the agent structures involved
 > rather than raw numbers? `mean_decisions` and `mean_backtracks` are the
 > interesting columns for Parts 2 vs. 3 (memory); win rate and mean
 > performance are the interesting columns for Parts 4 vs. 5 (goals vs.
 > utility); the before/after numbers in `learned_weights.json` are the
 > interesting ones for Part 6. If any part did NOT improve on the one
-> before it in your results |  say so and explain why -- that is a real
-> finding |  not something to hide.
+> before it in your results, say so and explain why -- that is a real
+> finding, not something to hide.
 
 ---
 
 ## Optional
 
-Anything you tried that did not work |  or a weight you tuned and then
-reverted. Not graded |  but useful to me.
+Anything you tried that did not work, or a weight you tuned and then
+reverted. Not graded, but useful to me.
