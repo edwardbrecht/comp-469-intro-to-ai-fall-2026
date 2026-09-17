@@ -35,17 +35,18 @@ specific in the code, and name it.
 
 | Property | This environment is... | Why (cite the code) |
 |---|---|---|
-| Fully or partially observable | | |
-| Single-agent or multi-agent | | |
-| Deterministic or nondeterministic | | |
-| Episodic or sequential | | |
-| Static or dynamic | | |
-| Discrete or continuous | | |
-| Known or unknown | | |
+| Fully or partially observable | Fully | maze.distance() searches the entire environment |
+| Single-agent or multi-agent | Multi | Ghosts act as antagonists |
+| Deterministic or nondeterministic |  Deterministic | Ghosts are the only other animated entitied, and rules._choose_ghost_action() is not random |
+| Episodic or sequential | Episodic | choose_action() functions for all agents are based only on the immediate situation determined by it's percepts |
+| Static or dynamic | Static | choose_action() is complete within a single frame for all agents |
+| Discrete or continuous | Discrete | maze.LEVEL is constant and a finite size. Additionally, rules._run_tick() provides a frame within which the player and ghosts act |
+| Known or unknown | Known | rules.py dictates only a few simple static interactions; agent knows to avoid ghosts unless they are frightened and to go after pellets |
 
 **Follow-up.** Two of these have an argument on both sides in this
 particular implementation. Pick one, and make the case for the answer you
 did *not* put in the table.
+Some agents only have access to knowing the result of taking an action ie what is right next to them. In those cases the environment is only partially observable.
 
 ---
 
@@ -146,12 +147,15 @@ and a row for the trained `learning` agent from
 | learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 | 232.29 |
 | greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 | 758.66 |
 | random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 | 8.87 |
+<<<<<<< HEAD
+=======
 
 Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
 
 | agent | difficulty | mean_performance before training | mean_performance after training | change |
 |---|---|---|---|---|
 | learning | normal | -68.31 | 393.87 | +462.18 |
+>>>>>>> a2f43a305eaf118118b48ac40d713a114c4a80de
 
 **Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part
