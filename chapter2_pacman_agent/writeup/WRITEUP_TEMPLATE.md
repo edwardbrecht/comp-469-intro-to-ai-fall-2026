@@ -91,13 +91,55 @@ you.
 **Where does each one live?**
 > File and function/class for both.
 
+The performance measure is Simulation.performance() in pacman/rules.py.
+It scores the full game after it ends. It starts with the game score
+(10 per pellet, 50 per power pellet, 200 per ghost eaten), adds a 2000
+bonus for a win, subtracts 1000 if Pac-Man is caught, subtracts 0.20 per
+decision, and subtracts 2.0 per immediate backtrack.
+
+The utility function is in utility_based_agent.py. The preferences are
+stored in the UtilityWeights dataclass. UtilityBasedAgent.evaluate_action()
+uses those weights to score each legal move. Then choose_action() picks the
+move with the highest score. It judges the tile Pac-Man would move to, not the
+full game.
+
 **Name one place they disagree.**
 > Find something your utility function rewards (or punishes) that the
 > performance measure does not, or the reverse. Explain why that gap
 > exists and whether it is a flaw.
 
+One difference is how they treat frightened ghosts. The performance measure
+gives 200 points for eating one, but our ghost_catch_frightened and
+ghost_close_frightened weights are both 0. This means the utility function
+does not try to chase ghosts while Pac-Man is powered up. The power_pellet
+weight is also 0, even though a power pellet is worth 50 points.
+
+We chose those values based on our tests. Frightened ghosts run away at full
+speed, and the effect lasts 2 seconds (POWER_DURATION_MS). Pac-Man could not
+catch them most of the time. Chasing also pulled Pac-Man away from food and
+put it near other ghosts. With a chase weight of -0.1, the win rate over 200
+practice games dropped from about 80% to about 20%. A power pellet bonus of
+0.5 made the agent eat power pellets too early, even when no ghost was nearby.
+This dropped the win rate to about 10%. Since a win is worth 2000 points and
+getting caught costs 1000, giving up some ghost points was worth it if the
+agent won more games.
+
+We do not think this is a flaw. On normal difficulty, the agent ate 21 ghosts
+across 30 games, while the ghost-blind greedy baseline ate 46. However, our
+agent won 80% of its games compared with 60% for greedy, and its mean
+performance was 2340 instead of 1861. The utility function does not need to
+copy every part of the performance measure. It needs to choose moves that lead
+to a better result. The downside is that it may pass up a ghost that it
+could have eaten safely.
+
 **Why does AIMA insist on the distinction?**
 > Answer in your own words, in three or four sentences.
+
+The performance measure is how the designer judges the final result. The
+utility function is how the agent estimates which move is best. AIMA keeps
+them separate because the agent's estimate may not match what the designer
+wants. This lets us check whether the agent's choices lead to a better score
+instead of letting the agent define success for itself.
 
 ---
 
@@ -106,18 +148,51 @@ you.
 Run some `hard` trials with your Part 5 (or Part 6) agent and find a seed
 where it lost.
 
-**Seed:**
+**Seed:** 13 on hard, with utility_based. The same seed on normal is a win.
 
 **What happened.**
 > Replay it with `python tools/play.py --difficulty hard --agent
-> utility_based --seed N` and describe the sequence.
+> utility_based --seed 13` and describe the sequence.
+
+About 12 seconds into the game, the agent had almost cleared the maze. After
+eating the pellet at (8,15), only two pellets were left on the far-left side.
+The agent turned around and followed the bottom corridor because it was the
+shortest route. One ghost entered the corridor from the left while another
+came down the right side behind Pac-Man. At (8,11), moving left would have
+gone onto the first ghost and moving right would have sent Pac-Man back toward
+the second one. Going up had the best utility score, -11.6, so the agent chose
+it. On hard difficulty, ghosts move every 110 ms while Pac-Man moves every 135
+ms. The first ghost moved twice and caught Pac-Man at (7,11), with
+two pellets still left. The final score was 870 and the performance was
+-165.2. On normal difficulty, the same seed ended in a win with a performance
+of 3253.8.
 
 **Why the losing decision was still rational.**
 > AIMA Section 2.2.2 separates rationality from omniscience. Use it. What
 > did the agent not know, and could it have known it given the percept it
 > was handed and the "no search" rule every part in this project follows?
 
+Section 2.2.2 explains that a rational agent picks the action it expects to
+work best based on what it has seen and what it knows. This does not mean it
+knows what will happen. Going up had the highest utility. The other two choices
+were worse or would cause Pac-Man to get caught. The agent did not know the
+ghost speed because its percept included the positions in released_ghosts but
+not ghost_period_ms. It also could not know each ghost's next move because the
+ghosts chase 80% of the time and move at random the rest of the time. The agent
+also did not know that (7,11) led toward a dead end. It would have needed to
+look several moves ahead, but the project does not allow search. Based on the
+information it had, going up was a rational choice even though it lost.
+
 **What would have to change for that decision to be irrational?**
+
+The decision would be irrational if the percept included the ghost speed or
+difficulty and the agent treated a ghost two steps away as safe. It would be
+ignoring information it had. It would also be irrational if the agent kept
+losing hard games in the same way but never changed its weights. A Part 6
+agent trained on hard difficulty could learn to make ghost_two_steps negative.
+The choice would also be irrational if another legal move had a higher utility
+score and the agent ignored it, or if it moved left onto the ghost with a
+utility of -5009.6.
 
 ---
 
@@ -165,6 +240,23 @@ Trained `learning` agent, from `results/learned_weights.json` (mean performance 
 > interesting ones for Part 6. If any part did NOT improve on the one
 > before it in your results, say so and explain why -- that is a real
 > finding, not something to hide.
+
+Part 1 does not get far because its table only knows its heading and legal
+moves, so it cannot see food or ghosts. Part 2 adds rules for nearby tiles,
+which helps it survive longer, but it has no memory and often moves back and
+forth after eating the nearby food. Part 3 adds memory, and on normal it makes
+fewer decisions and backtracks than Part 2, but its performance gets worse
+because it visits new tiles while only avoiding ghosts that are one step away.
+Part 4 is the first agent to win games because it runs when a ghost gets within
+three steps, but switching between fleeing and eating causes many backtracks.
+Part 5 scores food, danger, and memory together instead of using one goal at a
+time, which leads to a large improvement on normal and lets it beat the greedy
+baseline. Part 4 does better than Part 5 on hard because the Part 5 weights
+only respond to a ghost one step away, while Part 4 starts running sooner.
+Part 6 starts with weak weights and uses hill climbing, which improves its
+performance on the held-out games. It still falls behind the hand-tuned Part 5
+agent because each change is tested on only four games, so the training does
+not find the stronger weights found through longer testing.
 
 ---
 
