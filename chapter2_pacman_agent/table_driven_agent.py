@@ -71,17 +71,16 @@ class TableDrivenAgent:
 
         table = {}
 
-        temp_names = DIRECTION_NAMES
-        temp_names[(0, 0)] = "START"
-        for d in temp_names:
-            table[d] = d
-            for s in _all_nonempty_subsets(DIRECTION_ORDER):
-                next_action = s[0]
-                if s.__contains__(d):
-                    next_action = d
-                key = (d, s)
+        temp_directions = [(0, 0)] + list(DIRECTION_NAMES)
+       
+        for direction in temp_directions:
+            for legal_actions in _all_nonempty_subsets(DIRECTION_ORDER):
+                next_action = legal_actions[0]
+                if legal_actions.__contains__(direction):
+                    next_action = direction
+                key = (direction, legal_actions)
                 table[key] = next_action
-        print(table)
+
         return table
 
 
@@ -99,13 +98,15 @@ class TableDrivenAgent:
           - Set ``self.last_reason`` to a short line with the direction
             name, e.g. ``f"{DIRECTION_NAMES[action]} | table lookup"``.
         """
-        if percept.legal_actions == None:
+        if percept.legal_actions == ():
             self.last_reason = "No legal"
             return (0, 0)
-        action = self.table[(percept.current_direction, percept.legal_actions)]
-        if action == None:
+        if ((percept.current_direction, percept.legal_actions)) in self.table:
+            action = self.table[(percept.current_direction, percept.legal_actions)]
+        else:
             self.table_misses += 1
-            action = percept.legal_actions[0]          
+            action = percept.legal_actions[0]    
+        self.last_reason = f"{DIRECTION_NAMES[action]} | table lookup"     
         return action
 
 
