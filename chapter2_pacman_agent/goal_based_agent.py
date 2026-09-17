@@ -12,8 +12,6 @@ class or blend multiple scored terms into one number -- that is Part 5.
 
 This agent does not need the memory from Part 3 to do its job -- the goal
 is recomputed fresh from each percept -- so it is intentionally left out.
-
-TODO(CH2-4a), TODO(CH2-4b), TODO(CH2-4c) mark what to do.
 """
 
 from __future__ import annotations
