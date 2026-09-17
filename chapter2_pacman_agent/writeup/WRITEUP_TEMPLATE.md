@@ -15,16 +15,29 @@ Describe this task environment using AIMA Section 2.3.1. This is one
 description for the whole environment -- all six of your agents share it.
 
 **Performance measure.**
-> Pac-Man earns points for eating regular pellets, power pellets, and frightened ghosts, and gets a big bonus for clearing the maze in full. It loses points if a ghost catches it, and for taking too many turns or immediately turning back the way it came.
+> What is the agent actually judged on? Name the function and the file.
+> List every term in it, including the ones that cost points.
+
+Pac-Man earns points for eating regular pellets, power pellets, and frightened ghosts, and gets a big bonus for clearing the maze in full. It loses points if a ghost catches it, and for taking too many turns or immediately turning back the way it came.
 
 **Environment.**
-> The environment is the Pac-Man maze, which includes walls, pellets, power pellets, Pac-Man, ghosts, and a timer. While Pac-Man plays, things that change are that pellets disappear when eaten, power pellets make ghosts frightened for a short time, and ghosts move around the maze. On hard difficulty, ghosts will move faster.
+> The maze, the ghosts, the pellets, the clock. Mention anything that
+> changes while an agent is deciding.
+
+The environment is the Pac-Man maze, which includes walls, pellets, power pellets, Pac-Man, ghosts, and a timer. While Pac-Man plays, things that change are that pellets disappear when eaten, power pellets make ghosts frightened for a short time, and ghosts move around the maze. On hard difficulty, ghosts will move faster.
 
 **Actuators.**
-> Pac-Man during each turn can choose to move left, right, up, or down. If the move is legal, Pac-Man moves one tile in that direction. If the move would hit a wall, Pac-Man stays where he is, but the turn still counts.
+> What can an agent actually do? Be precise about how many actions it
+> takes per turn and what happens if it picks an illegal one.
+
+Pac-Man during each turn can choose to move left, right, up, or down. If the move is legal, Pac-Man moves one tile in that direction. If the move would hit a wall, Pac-Man stays where he is, but the turn still counts.
 
 **Sensors.**
-> Depending on the agent, it can be told its own location, its current direction, where pellets and power pellets are, where ghosts are, what moves are legal, and whether ghosts are frightened. Different agents get different information because each part of the assignment is testing a different type of AI agent.
+> What can an agent perceive? Name the mechanism that decides this, not
+> just the list of possible fields -- and say why different parts of this
+> project declare different subsets of them.
+
+Depending on the agent, it can be told its own location, its current direction, where pellets and power pellets are, where ghosts are, what moves are legal, and whether ghosts are frightened. Different agents get different information because each part of the assignment is testing a different type of AI agent.
 
 ---
 
@@ -67,12 +80,20 @@ restatement of what it does overall -- the specific delta).
 
 **Two follow-ups:**
 
-> For Part 2/3, we used `released_ghosts`, which are the ghosts that have left the ghost house and can move around the maze. If we used `ghosts` instead, Pac-Man would also react to ghosts still stuck in the ghost house, which could make it avoid danger that is not actually a threat yet.
+> For Part 2/3: you had a choice between `ghosts` and `released_ghosts`
+> in your percepts. Say which you took and what the other one would have
+> cost you.
 
-> Performance element: `self.performance_element`. It is the Part 5 UtilityBasedAgent that chooses moves.
-> Learning element: `learn()`. It keeps new weights if they performed better, or switches back to the old best weights if they performed worse.
-> Critic: `learn(performance)`. This score comes from the environment after each game.
-> Problem generator: `propose_new_weights()`. It makes small random changes to the weights to try in the next game.
+For Part 2/3, we used `released_ghosts`, which are the ghosts that have left the ghost house and can move around the maze. If we used `ghosts` instead, Pac-Man would also react to ghosts still stuck in the ghost house, which could make it avoid danger that is not actually a threat yet.
+
+> For Part 6: map the four boxes of AIMA Figure 2.15 (performance
+> element, critic, learning element, problem generator) onto specific
+> names in `learning_agent.py`.
+
+Performance element: `self.performance_element`. It is the Part 5 UtilityBasedAgent that chooses moves.
+Learning element: `learn()`. It keeps new weights if they performed better, or switches back to the old best weights if they performed worse.
+Critic: `learn(performance)`. This score comes from the environment after each game.
+Problem generator: `propose_new_weights()`. It makes small random changes to the weights to try in the next game.
 
 ---
 
