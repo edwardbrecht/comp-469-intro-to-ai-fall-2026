@@ -69,10 +69,6 @@ restatement of what it does overall -- the specific delta).
 
 > For Part 2/3, we used `released_ghosts`, which are the ghosts that have left the ghost house and can move around the maze. If we used `ghosts` instead, Pac-Man would also react to ghosts still stuck in the ghost house, which could make it avoid danger that is not actually a threat yet.
 
-> For Part 6: map the four boxes of AIMA Figure 2.15 (performance
-> element, critic, learning element, problem generator) onto specific
-> names in `learning_agent.py`.
-
 > Performance element: `self.performance_element`. It is the Part 5 UtilityBasedAgent that chooses moves.
 > Learning element: `learn()`. It keeps new weights if they performed better, or switches back to the old best weights if they performed worse.
 > Critic: `learn(performance)`. This score comes from the environment after each game.
