@@ -73,16 +73,24 @@ class SimpleReflexAgent:
             self.last_reason = "No legal"
             return (0, 0)
 
+        safe_actions = list(percept.legal_actions)
         for action in percept.legal_actions:
-            if percept.released_ghosts.__contains__(percept.player + action):
-                if percept.legal_actions.__len__() == 1:
-                    return action
-                percept.legal_actions - action
-                continue
-            
-
-
-        return percept.legal_actions[0]
+            next_location = self.maze.step(percept.player, action)
+            if percept.released_ghosts.__contains__(next_location):
+                if percept.frightened_time_remaining > 0:
+                    return self._commit(action, "Rule 3")
+                if len(safe_actions) > 1:
+                    safe_actions.remove(action)
+                    continue
+                else:
+                    return self._commit(action, "Rule 2")
+            elif percept.power_pellets.__contains__(next_location):
+                return self._commit(action, "Rule 4")
+            elif percept.pellets.__contains__(next_location):
+                return self._commit(action, "Rule 5")
+        if safe_actions.__contains__(percept.current_direction):
+                return self._commit(percept.current_direction, "Rule 6")
+        return self._commit(safe_actions[0], "Rule 7")
 
     def _commit(self, action: tuple[int, int], rule: str) -> tuple[int, int]:
         """Set last_reason to e.g. 'RIGHT | rule: adjacent pellet' and
