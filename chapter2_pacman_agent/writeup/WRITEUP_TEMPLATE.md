@@ -127,88 +127,30 @@ Paste the summary table from `results/summary.csv` (both difficulties),
 and a row for the trained `learning` agent from
 `results/learned_weights.json`.
 
-| agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_performance |
-|---|---|---|---|---|---|---|---|
-| | | | | | | | |
-agent,difficulty,trials,win_rate,caught_rate,mean_score,mean_decisions,mean_backtracks,mean_performance,stdev_performance
-table_driven,normal,30,0.0,1.0,77.0,12.23,1.1,-927.65,20.0
-simple_reflex,normal,30,0.0,1.0,898.0,116.3,7.0,-139.26,347.71
-model_based,normal,30,0.0,1.0,602.67,84.3,1.5,-417.19,89.97
-goal_based,normal,30,0.133,0.867,712.33,98.47,10.83,70.97,1210.01
-utility_based,normal,30,0.8,0.2,972.33,88.77,7.27,2340.05,1416.15
-learning,normal,30,0.0,1.0,338.33,44.13,8.63,-687.76,217.81
-greedy,normal,30,0.6,0.4,1091.0,79.9,6.93,1861.15,1819.58
-random,normal,30,0.0,1.0,190.67,33.2,11.87,-839.71,129.68
+| agent | difficulty | trials | win_rate | caught_rate | mean_score | mean_decisions | mean_backtracks | mean_performance |
+|---|---|---|---|---|---|---|---|---|
+| table_driven | normal | 30 | 0.0 | 1.0 | 77.0 | 12.23 | 1.1 | -927.65 |
+| simple_reflex | normal | 30 | 0.0 | 1.0 | 898.0 | 116.3 | 7.0 | -139.26 |
+| model_based | normal | 30 | 0.0 | 1.0 | 602.67 | 84.3 | 1.5 | -417.19 |
+| goal_based | normal | 30 | 0.133 | 0.867 | 712.33 | 98.47 | 10.83 | 70.97 |
+| utility_based | normal | 30 | 0.8 | 0.2 | 972.33 | 88.77 | 7.27 | 2340.05 |
+| learning | normal | 30 | 0.167 | 0.833 | 593.33 | 73.73 | 7.1 | 64.39 |
+| greedy | normal | 30 | 0.6 | 0.4 | 1091.0 | 79.9 | 6.93 | 1861.15 |
+| random | normal | 30 | 0.0 | 1.0 | 190.67 | 33.2 | 11.87 | -839.71 |
+| table_driven | hard | 30 | 0.0 | 1.0 | 70.0 | 9.23 | 1.0 | -933.85 |
+| simple_reflex | hard | 30 | 0.0 | 1.0 | 143.33 | 14.97 | 0.2 | -860.06 |
+| model_based | hard | 30 | 0.0 | 1.0 | 578.0 | 59.0 | 0.43 | -434.67 |
+| goal_based | hard | 30 | 0.233 | 0.767 | 682.0 | 71.43 | 6.9 | 353.91 |
+| utility_based | hard | 30 | 0.067 | 0.933 | 579.33 | 63.23 | 5.17 | -243.65 |
+| learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 |
+| greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 |
+| random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 |
 
-agent,difficulty,trials,win_rate,caught_rate,mean_score,mean_decisions,mean_backtracks,mean_performance,stdev_performance
-table_driven,hard,30,0.0,1.0,70.0,9.23,1.0,-933.85,0.09
-simple_reflex,hard,30,0.0,1.0,143.33,14.97,0.2,-860.06,128.63
-model_based,hard,30,0.0,1.0,578.0,59.0,0.43,-434.67,54.74
-goal_based,hard,30,0.233,0.767,682.0,71.43,6.9,353.91,1494.56
-utility_based,hard,30,0.067,0.933,579.33,63.23,5.17,-243.65,871.84
-learning,hard,30,0.0,1.0,650.0,55.83,8.5,-378.17,309.44
-greedy,hard,30,0.033,0.967,161.67,14.9,0.4,-742.11,758.66
-random,hard,30,0.0,1.0,131.33,21.9,6.2,-885.45,8.87
+Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
 
-{
-  "start_weights": {
-    "food_distance": -0.2,
-    "regular_pellet": 32.641850697267756,
-    "power_pellet": 80.0,
-    "ghost_catch_frightened": 110.0,
-    "ghost_close_frightened": -1.5,
-    "ghost_collision": -2600.0,
-    "ghost_one_step": -270.62052587373205,
-    "ghost_two_steps": -70.0,
-    "ghost_three_steps": -20.0,
-    "ghost_safe_distance": 0.0,
-    "ghost_safe_distance_cap": 0.0,
-    "continuation": 0.2615940288859081,
-    "revisit_per_visit": 0.37665560718379976,
-    "backtrack": -0.013026606091316775
-  },
-  "best_weights": {
-    "food_distance": -0.2,
-    "regular_pellet": 42.619616677708784,
-    "power_pellet": 80.0,
-    "ghost_catch_frightened": 109.60467806179305,
-    "ghost_close_frightened": -1.5,
-    "ghost_collision": -2600.0,
-    "ghost_one_step": -244.11823008058425,
-    "ghost_two_steps": -70.0,
-    "ghost_three_steps": -20.0,
-    "ghost_safe_distance": -0.12200319456166138,
-    "ghost_safe_distance_cap": 0.0,
-    "continuation": 0.2615940288859081,
-    "revisit_per_visit": 0.7533112143675995,
-    "backtrack": -0.02605321218263355
-  },
-  "eval_seeds": [
-    9001,
-    9002,
-    9003,
-    9004,
-    9005,
-    9006,
-    9007,
-    9008,
-    9009,
-    9010,
-    9011,
-    9012,
-    9013,
-    9014,
-    9015,
-    9016,
-    9017,
-    9018,
-    9019,
-    9020
-  ],
-  "mean_performance_before": -714.65,
-  "mean_performance_after": -745.38,
-  "episodes_trained": 80
-}
+| agent | difficulty | mean_performance before training | mean_performance after training | change |
+|---|---|---|---|---|
+| learning | normal | -68.31 | 393.87 | +462.18 |
 
 **Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part

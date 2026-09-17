@@ -1,35 +1,35 @@
 {
   "start_weights": {
     "food_distance": -0.2,
-    "regular_pellet": 32.641850697267756,
+    "regular_pellet": 25.0,
     "power_pellet": 80.0,
     "ghost_catch_frightened": 110.0,
     "ghost_close_frightened": -1.5,
     "ghost_collision": -2600.0,
-    "ghost_one_step": -270.62052587373205,
+    "ghost_one_step": -300.0,
     "ghost_two_steps": -70.0,
     "ghost_three_steps": -20.0,
     "ghost_safe_distance": 0.0,
     "ghost_safe_distance_cap": 0.0,
-    "continuation": 0.2615940288859081,
-    "revisit_per_visit": 0.37665560718379976,
-    "backtrack": -0.013026606091316775
+    "continuation": 0.0,
+    "revisit_per_visit": 0.0,
+    "backtrack": 0.0
   },
   "best_weights": {
     "food_distance": -0.2,
-    "regular_pellet": 42.619616677708784,
+    "regular_pellet": 19.78643775928284,
     "power_pellet": 80.0,
-    "ghost_catch_frightened": 109.60467806179305,
-    "ghost_close_frightened": -1.5,
+    "ghost_catch_frightened": 106.64227827514021,
+    "ghost_close_frightened": -1.5145668960838548,
     "ghost_collision": -2600.0,
-    "ghost_one_step": -244.11823008058425,
-    "ghost_two_steps": -70.0,
-    "ghost_three_steps": -20.0,
-    "ghost_safe_distance": -0.12200319456166138,
+    "ghost_one_step": -300.0,
+    "ghost_two_steps": -69.18296521022172,
+    "ghost_three_steps": -21.79026133795173,
+    "ghost_safe_distance": 0.14643644239078274,
     "ghost_safe_distance_cap": 0.0,
-    "continuation": 0.2615940288859081,
-    "revisit_per_visit": 0.7533112143675995,
-    "backtrack": -0.02605321218263355
+    "continuation": 0.06418062114875416,
+    "revisit_per_visit": 0.0,
+    "backtrack": 0.0
   },
   "eval_seeds": [
     9001,
@@ -53,7 +53,7 @@
     9019,
     9020
   ],
-  "mean_performance_before": -714.65,
-  "mean_performance_after": -745.38,
+  "mean_performance_before": -68.31,
+  "mean_performance_after": 393.87,
   "episodes_trained": 80
 }
