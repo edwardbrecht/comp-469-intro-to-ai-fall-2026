@@ -15,21 +15,16 @@ Describe this task environment using AIMA Section 2.3.1. This is one
 description for the whole environment -- all six of your agents share it.
 
 **Performance measure.**
-> What is the agent actually judged on? Name the function and the file.
-> List every term in it, including the ones that cost points.
+> Pac-Man earns points for eating regular pellets, power pellets, and frightened ghosts, and gets a big bonus for clearing the maze in full. It loses points if a ghost catches it, and for taking too many turns or immediately turning back the way it came.
 
 **Environment.**
-> The maze, the ghosts, the pellets, the clock. Mention anything that
-> changes while an agent is deciding.
+> The environment is the Pac-Man maze, which includes walls, pellets, power pellets, Pac-Man, ghosts, and a timer. While Pac-Man plays, things that change are that pellets disappear when eaten, power pellets make ghosts frightened for a short time, and ghosts move around the maze. On hard difficulty, ghosts will move faster.
 
 **Actuators.**
-> What can an agent actually do? Be precise about how many actions it
-> takes per turn and what happens if it picks an illegal one.
+> Pac-Man during each turn can choose to move left, right, up, or down. If the move is legal, Pac-Man moves one tile in that direction. If the move would hit a wall, Pac-Man stays where he is, but the turn still counts.
 
 **Sensors.**
-> What can an agent perceive? Name the mechanism that decides this, not
-> just the list of possible fields -- and say why different parts of this
-> project declare different subsets of them.
+> Depending on the agent, it can be told its own location, its current direction, where pellets and power pellets are, where ghosts are, what moves are legal, and whether ghosts are frightened. Different agents get different information because each part of the assignment is testing a different type of AI agent.
 
 ---
 
