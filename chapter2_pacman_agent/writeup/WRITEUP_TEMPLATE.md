@@ -15,21 +15,16 @@ Describe this task environment using AIMA Section 2.3.1. This is one
 description for the whole environment -- all six of your agents share it.
 
 **Performance measure.**
-> What is the agent actually judged on? Name the function and the file.
-> List every term in it, including the ones that cost points.
+> Pac-Man earns points for eating regular pellets, power pellets, and frightened ghosts, and gets a big bonus for clearing the maze in full. It loses points if a ghost catches it, and for taking too many turns or immediately turning back the way it came.
 
 **Environment.**
-> The maze, the ghosts, the pellets, the clock. Mention anything that
-> changes while an agent is deciding.
+> The environment is the Pac-Man maze, which includes walls, pellets, power pellets, Pac-Man, ghosts, and a timer. While Pac-Man plays, things that change are that pellets disappear when eaten, power pellets make ghosts frightened for a short time, and ghosts move around the maze. On hard difficulty, ghosts will move faster.
 
 **Actuators.**
-> What can an agent actually do? Be precise about how many actions it
-> takes per turn and what happens if it picks an illegal one.
+> Pac-Man during each turn can choose to move left, right, up, or down. If the move is legal, Pac-Man moves one tile in that direction. If the move would hit a wall, Pac-Man stays where he is, but the turn still counts.
 
 **Sensors.**
-> What can an agent perceive? Name the mechanism that decides this, not
-> just the list of possible fields -- and say why different parts of this
-> project declare different subsets of them.
+> Depending on the agent, it can be told its own location, its current direction, where pellets and power pellets are, where ghosts are, what moves are legal, and whether ghosts are frightened. Different agents get different information because each part of the assignment is testing a different type of AI agent.
 
 ---
 
@@ -40,17 +35,18 @@ specific in the code, and name it.
 
 | Property | This environment is... | Why (cite the code) |
 |---|---|---|
-| Fully or partially observable | | |
-| Single-agent or multi-agent | | |
-| Deterministic or nondeterministic | | |
-| Episodic or sequential | | |
-| Static or dynamic | | |
-| Discrete or continuous | | |
-| Known or unknown | | |
+| Fully or partially observable | Fully | maze.distance() searches the entire environment |
+| Single-agent or multi-agent | Multi | Ghosts act as antagonists |
+| Deterministic or nondeterministic |  Deterministic | Ghosts are the only other animated entitied, and rules._choose_ghost_action() is not random |
+| Episodic or sequential | Episodic | choose_action() functions for all agents are based only on the immediate situation determined by it's percepts |
+| Static or dynamic | Static | choose_action() is complete within a single frame for all agents |
+| Discrete or continuous | Discrete | maze.LEVEL is constant and a finite size. Additionally, rules._run_tick() provides a frame within which the player and ghosts act |
+| Known or unknown | Known | rules.py dictates only a few simple static interactions; agent knows to avoid ghosts unless they are frightened and to go after pellets |
 
 **Follow-up.** Two of these have an argument on both sides in this
 particular implementation. Pick one, and make the case for the answer you
 did *not* put in the table.
+Some agents only have access to knowing the result of taking an action ie what is right next to them. In those cases the environment is only partially observable.
 
 ---
 
@@ -62,22 +58,21 @@ restatement of what it does overall -- the specific delta).
 
 | Part | Figure | What it adds over the previous part |
 |---|---|---|
-| 1. Table-driven | | (nothing to compare against -- say instead what makes it infeasible) |
-| 2. Simple reflex | | |
-| 3. Model-based reflex | | |
-| 4. Goal-based | | |
-| 5. Utility-based | | |
-| 6. Learning | | |
+| 1. Table-driven | 2.7 | A table-driven agent needs a saved move for every possible history of the game. Since there are too many possible histories, the table would become too large to store and therefore impractical to use |
+| 2. Simple reflex | 2.10 | Replaces the giant table with simple rules based only on what it sees right now |
+| 3. Model-based reflex | 2.11 / 2.12 | Adds memory of visited tiles and recent movement |
+| 4. Goal-based | 2.13 | Adds a goal, to get food or move away from danger |
+| 5. Utility-based | 2.14 | Gives each possible move a score and picks the best one |
+| 6. Learning | 2.15 | Adjusts its utility weights between games based on performance |
 
 **Two follow-ups:**
 
-> For Part 2/3: you had a choice between `ghosts` and `released_ghosts`
-> in your percepts. Say which you took and what the other one would have
-> cost you.
+> For Part 2/3, we used `released_ghosts`, which are the ghosts that have left the ghost house and can move around the maze. If we used `ghosts` instead, Pac-Man would also react to ghosts still stuck in the ghost house, which could make it avoid danger that is not actually a threat yet.
 
-> For Part 6: map the four boxes of AIMA Figure 2.15 (performance
-> element, critic, learning element, problem generator) onto specific
-> names in `learning_agent.py`.
+> Performance element: `self.performance_element`. It is the Part 5 UtilityBasedAgent that chooses moves.
+> Learning element: `learn()`. It keeps new weights if they performed better, or switches back to the old best weights if they performed worse.
+> Critic: `learn(performance)`. This score comes from the environment after each game.
+> Problem generator: `propose_new_weights()`. It makes small random changes to the weights to try in the next game.
 
 ---
 
@@ -223,12 +218,15 @@ and a row for the trained `learning` agent from
 | learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 | 232.29 |
 | greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 | 758.66 |
 | random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 | 8.87 |
+<<<<<<< HEAD
+=======
 
 Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
 
 | agent | difficulty | mean_performance before training | mean_performance after training | change |
 |---|---|---|---|---|
 | learning | normal | -68.31 | 393.87 | +462.18 |
+>>>>>>> a2f43a305eaf118118b48ac40d713a114c4a80de
 
 **Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part
