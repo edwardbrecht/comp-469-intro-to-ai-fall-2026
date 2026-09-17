@@ -9,7 +9,6 @@ is empty: it cannot tell "I already cleared this" from "this was always
 empty", because both look like the same percept. That failure is exactly
 why AIMA moves on to model-based reflex agents next.
 
-TODO(CH2-2a) and TODO(CH2-2b) mark what to do.
 """
 
 from __future__ import annotations
@@ -45,9 +44,6 @@ class SimpleReflexAgent:
         self.maze = maze
         self.last_reason = "Waiting for first percept."
 
-    # -------------------------------------------------------------
-    # TODO(CH2-2b)  The rules
-    # -------------------------------------------------------------
     def choose_action(self, percept: Percept) -> tuple[int, int]:
         """Apply, in order, the first rule that fires:
 
