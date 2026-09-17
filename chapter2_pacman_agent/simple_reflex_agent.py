@@ -21,22 +21,15 @@ from pacman.maze import DIRECTION_NAMES, MazeModel
 AGENT_NAME = "simple_reflex"
 
 
-# =====================================================================
-# TODO(CH2-2a)  The percept
-# =====================================================================
-# Add the three fields this agent needs and currently lacks, using these
-# exact names:
-#   current_direction:          tuple[int, int]
-#   released_ghosts:            tuple[tuple[int, int], ...]
-#   frightened_time_remaining:  float
-# Keep the four fields already here.
-# =====================================================================
 @dataclass(frozen=True)
 class Percept:
     player: tuple[int, int]
     pellets: frozenset[tuple[int, int]]
     power_pellets: frozenset[tuple[int, int]]
     legal_actions: tuple[tuple[int, int], ...]
+    current_direction: tuple[int, int]
+    released_ghosts: tuple[tuple[int, int], ...]
+    frightened_time_remaining: float
 
     @property
     def frightened(self) -> bool:
@@ -76,7 +69,20 @@ class SimpleReflexAgent:
         return a chosen action in one place, so every branch reports the
         same way -- see its docstring.
         """
-        raise NotImplementedError("CH2-2b: choose_action")
+        if percept.legal_actions == ():
+            self.last_reason = "No legal"
+            return (0, 0)
+
+        for action in percept.legal_actions:
+            if percept.released_ghosts.__contains__(percept.player + action):
+                if percept.legal_actions.__len__() == 1:
+                    return action
+                percept.legal_actions - action
+                continue
+            
+
+
+        return percept.legal_actions[0]
 
     def _commit(self, action: tuple[int, int], rule: str) -> tuple[int, int]:
         """Set last_reason to e.g. 'RIGHT | rule: adjacent pellet' and
