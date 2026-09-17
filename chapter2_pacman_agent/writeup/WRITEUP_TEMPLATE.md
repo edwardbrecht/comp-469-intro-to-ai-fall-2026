@@ -218,15 +218,12 @@ and a row for the trained `learning` agent from
 | learning | hard | 30 | 0.0 | 1.0 | 638.33 | 50.87 | 3.23 | -378.31 | 232.29 |
 | greedy | hard | 30 | 0.033 | 0.967 | 161.67 | 14.9 | 0.4 | -742.11 | 758.66 |
 | random | hard | 30 | 0.0 | 1.0 | 131.33 | 21.9 | 6.2 | -885.45 | 8.87 |
-<<<<<<< HEAD
-=======
 
 Trained `learning` agent, from `results/learned_weights.json` (mean performance over 20 held-out seeds, 9001-9020; 80 training episodes):
 
 | agent | difficulty | mean_performance before training | mean_performance after training | change |
 |---|---|---|---|---|
 | learning | normal | -68.31 | 393.87 | +462.18 |
->>>>>>> a2f43a305eaf118118b48ac40d713a114c4a80de
 
 **Interpretation, five to eight sentences.**
 > Do not restate the numbers. Trace the progression: what does each part
