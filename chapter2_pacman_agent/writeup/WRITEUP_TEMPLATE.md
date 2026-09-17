@@ -1,7 +1,7 @@
 # Chapter 2 Write-Up
 
-Name:
-Date:
+Name: Jared Sagmaquen, Cary Chaput, Edward Brecht
+Date: 09/15/26
 
 Keep this to three or four pages. Answer from the code in front of you,
 not from the textbook in general. A correct answer that could have been
@@ -50,7 +50,7 @@ specific in the code, and name it.
 |---|---|---|
 | Fully or partially observable | Fully | maze.distance() searches the entire environment |
 | Single-agent or multi-agent | Multi | Ghosts act as antagonists |
-| Deterministic or nondeterministic |  Deterministic | Ghosts are the only other animated entitied, and rules._choose_ghost_action() is not random |
+| Deterministic or nondeterministic | Deterministic | Ghosts are the only other animated entitied, and rules._choose_ghost_action() is not random |
 | Episodic or sequential | Episodic | choose_action() functions for all agents are based only on the immediate situation determined by it's percepts |
 | Static or dynamic | Static | choose_action() is complete within a single frame for all agents |
 | Discrete or continuous | Discrete | maze.LEVEL is constant and a finite size. Additionally, rules._run_tick() provides a frame within which the player and ghosts act |
@@ -59,6 +59,7 @@ specific in the code, and name it.
 **Follow-up.** Two of these have an argument on both sides in this
 particular implementation. Pick one, and make the case for the answer you
 did *not* put in the table.
+
 Some agents only have access to knowing the result of taking an action ie what is right next to them. In those cases the environment is only partially observable.
 
 ---
@@ -91,8 +92,11 @@ For Part 2/3, we used `released_ghosts`, which are the ghosts that have left the
 > names in `learning_agent.py`.
 
 Performance element: `self.performance_element`. It is the Part 5 UtilityBasedAgent that chooses moves.
+
 Learning element: `learn()`. It keeps new weights if they performed better, or switches back to the old best weights if they performed worse.
+
 Critic: `learn(performance)`. This score comes from the environment after each game.
+
 Problem generator: `propose_new_weights()`. It makes small random changes to the weights to try in the next game.
 
 ---
